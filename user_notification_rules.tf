@@ -9,7 +9,7 @@
 */
 resource "pagerduty_user_notification_rule" "catelyn_stark_phone_high_urgency" {
   user_id                 = pagerduty_user.catelyn_stark.id
-  start_delay_in_minutes  = 0
+  start_delay_in_minutes  = 1
   urgency                 = "high"
   contact_method = {
     type = "phone_contact_method"
