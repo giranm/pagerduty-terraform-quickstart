@@ -1,34 +1,41 @@
 # pagerduty-terraform-quickstart
+
 An example quick start Terraform project to provision a PagerDuty environment.  
 This project covers most of the functionality from the [PagerDuty Provider](https://www.terraform.io/docs/providers/pagerduty/index.html), but is intended for learning/development purposes.
 
-## TL;DR
-TBD
+## Summary Video (TL;DR)
+
+[![Watch the video](https://i.ytimg.com/vi/osFY5_t-E8Q/maxresdefault.jpg)](https://youtu.be/c9M5B-Ri3Nc)
 
 ## Prerequisites
-* PagerDuty:
-  * Access to a domain: https://www.pagerduty.com/sign-up/
-  * Access to a REST API Token from target domain: https://support.pagerduty.com/docs/generating-api-keys
-  * Incident priority enabled within target domain: https://support.pagerduty.com/docs/incident-priority
-  * (Optional) `rulesets.tf` require [Event Intelligence](https://support.pagerduty.com/docs/event-intelligence) to be enabled on the domain - [Contact our team](https://www.pagerduty.com/contact-us/) for access
-* Terraform CLI: https://learn.hashicorp.com/terraform/getting-started/install
+
+- PagerDuty:
+  - Access to a domain: https://www.pagerduty.com/sign-up/
+  - Access to a REST API Token from target domain: https://support.pagerduty.com/docs/generating-api-keys
+  - Incident priority enabled within target domain: https://support.pagerduty.com/docs/incident-priority
+  - (Optional) `rulesets.tf` require [Event Intelligence](https://support.pagerduty.com/docs/event-intelligence) to be enabled on the domain - [Contact our team](https://www.pagerduty.com/contact-us/) for access
+- Terraform CLI: https://learn.hashicorp.com/terraform/getting-started/install
 
 ## Installation
 
 1. Clone repo into appropriate location and enter directory.
+
 ```bash
 $ git clone git@github.com:giranm/pagerduty-terraform-quickstart.git
 ```
+
 ```bash
 $ cd pagerduty-terraform-quickstart
 ```
 
 2. Initialise Terraform (Local State)
+
 ```bash
 $ terraform init
 ```
 
 A successful output should look something like:
+
 ```
 Initializing the backend...
 
@@ -58,24 +65,26 @@ commands will detect it and remind you to do so if necessary.
 ```
 
 Once initialized, `terraform.tfstate` will keep the current state of the deployment on the local disk.  
-If you wish to have this securely managed, kindly consider using a [remote backend provider](https://www.terraform.io/docs/backends/index.html).  
+If you wish to have this securely managed, kindly consider using a [remote backend provider](https://www.terraform.io/docs/backends/index.html).
 
 ## Usage
+
 Once a PagerDuty REST API token has been generated within the appropriate domain, the repo can be used to provision resources using Terraform.  
-The token can be passed through the command line or as an environment variable; we *do not* recommend checking this into the code.
+The token can be passed through the command line or as an environment variable; we _do not_ recommend checking this into the code.
 
 ```bash
 $ terraform apply -var="PAGERDUTY_TOKEN=TOKEN_HERE"
 ```
 
-*or*
+_or_
 
 ```bash
 $ export TF_VAR_PAGERDUTY_TOKEN=TOKEN_HERE
 $ terraform apply
 ```
 
-Terraform `apply` will formulate an appropriate plan depending on the order of resources to be provisioned/updated.  
+Terraform `apply` will formulate an appropriate plan depending on the order of resources to be provisioned/updated.
+
 ```bash
 $ terraform apply
 
@@ -112,10 +121,11 @@ Do you want to perform these actions?
   Terraform will perform the actions described above.
   Only 'yes' will be accepted to approve.
 
-  Enter a value: 
+  Enter a value:
 ```
 
-When you've reviewed the suggested changes, enter `yes` to provision/update the resources.  
+When you've reviewed the suggested changes, enter `yes` to provision/update the resources.
+
 ```bash
   Enter a value: yes
 
@@ -131,6 +141,3 @@ pagerduty_team.operations: Creation complete after 2s [id=PWQDNED]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 ```
-
-## Details
-TBD
