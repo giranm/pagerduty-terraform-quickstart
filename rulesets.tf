@@ -40,9 +40,9 @@ resource "pagerduty_ruleset" "global_ruleset" {
   AND update incident note
 */
 
-resource "pagerduty_ruleset_rule" "example_application_website_warning_1" {
+resource "pagerduty_ruleset_rule" "example_application_website_warning_0" {
   ruleset   = pagerduty_ruleset.support_ruleset.id
-  position  = 1
+  position  = 0
   time_frame {
     scheduled_weekly {
       weekdays    = [1, 2, 3, 4, 5]
@@ -79,7 +79,7 @@ resource "pagerduty_ruleset_rule" "example_application_website_warning_1" {
       value = data.pagerduty_priority.p3.id
     }
     annotate {
-      value = "Routed via global rule: example_application_website_warning_1"
+      value = "Routed via global rule: example_application_website_warning_0"
     }
   }
 }
@@ -94,9 +94,9 @@ resource "pagerduty_ruleset_rule" "example_application_website_warning_1" {
   THEN suppress alert (i.e. do not create incident)
 */
 
-resource "pagerduty_ruleset_rule" "example_application_website_warning_2" {
+resource "pagerduty_ruleset_rule" "example_application_website_warning_1" {
   ruleset   = pagerduty_ruleset.support_ruleset.id
-  position  = 2
+  position  = 1
   conditions {
     subconditions {
       operator = "contains"
