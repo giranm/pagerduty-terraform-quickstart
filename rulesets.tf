@@ -35,8 +35,8 @@ resource "pagerduty_ruleset" "global_ruleset" {
   AND payload.severity = warning
   THEN route alert to website service
   AND create incident
-  AND update incident severity
-  AND update incident priority
+  AND update incident severity to "warning"
+  AND update incident priority to "P3"
   AND update incident note
 */
 
@@ -129,9 +129,11 @@ resource "pagerduty_ruleset_rule" "example_application_website_warning_1" {
   AND payload.severity=critical
   THEN route alert to database service
   AND create incident
+  AND create template variable "Src" from payload.source
   AND extract (.*) from payload.component to dedup_key
-  AND update incident severity
-  AND update incident priority
+  AND update incident summary to "Critical: Failure on Database {{Src}}" (containing temmplate variable)
+  AND update incident severity to "critical"
+  AND update incident priority to "P1"
   AND update incident note
 */
 resource "pagerduty_ruleset_rule" "example_application_database_critical" {
@@ -153,6 +155,14 @@ resource "pagerduty_ruleset_rule" "example_application_database_critical" {
       }
     }
   }
+  variable {
+    type = "regex"
+    name = "Src"
+    parameters {
+      value = "(.*)"
+      path  = "payload.source"
+    }
+  }
   actions {
     route {
       value = pagerduty_service.example_application_database.id
@@ -170,6 +180,10 @@ resource "pagerduty_ruleset_rule" "example_application_database_critical" {
       source  = "payload.component"
       regex   = "(.*)"
       target  = "dedup_key"
+    }
+    extractions {
+      target = "summary"
+      template = "Critical: Failure on Database {{Src}}"
     }
   }
 }
