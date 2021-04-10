@@ -14,25 +14,32 @@ This project covers most of the functionality from the [PagerDuty Provider](http
   - Access to a REST API Token from target domain: https://support.pagerduty.com/docs/generating-api-keys
   - Incident priority enabled within target domain: https://support.pagerduty.com/docs/incident-priority
   - (Optional) `rulesets.tf` require [Event Intelligence](https://support.pagerduty.com/docs/event-intelligence) to be enabled on the domain - [Contact our team](https://www.pagerduty.com/contact-us/) for access
-- Terraform CLI: https://learn.hashicorp.com/terraform/getting-started/install
+- Terraform:
+  - [CLI](https://learn.hashicorp.com/terraform/getting-started/install) - minimum version of v0.13 required
+  - [tfswitch](https://medium.com/@warrensbox/how-to-manage-different-terraform-versions-for-each-project-51cca80ccece) - if you need to switch Terraform versions back and forth - i.e. compatibility existing with older projects.
 
 ## Installation
 
-1. Clone repo into appropriate location and enter directory.
+1. Clone repo (via SSH) into appropriate location and enter directory.
 
-```bash
-$ git clone git@github.com:giranm/pagerduty-terraform-quickstart.git
-```
+    ```bash
+    $ git clone git@github.com:giranm/pagerduty-terraform-quickstart.git
+    ```
 
-```bash
-$ cd pagerduty-terraform-quickstart
-```
+    ```bash
+    $ cd pagerduty-terraform-quickstart
+    ```
 
-2. Initialise Terraform (Local State)
+    > NB - if you cannot clone via SSH, try using HTTPS instead via:
+    ```bash
+    $ git clone https://github.com/giranm/pagerduty-terraform-quickstart.git
+    ```
 
-```bash
-$ terraform init
-```
+2. Initialise Terraform Workspace
+
+    ```bash
+    $ terraform init
+    ```
 
 A successful output should look something like:
 
@@ -40,18 +47,18 @@ A successful output should look something like:
 Initializing the backend...
 
 Initializing provider plugins...
-- Checking for available provider plugins...
-- Downloading plugin for provider "pagerduty" (terraform-providers/pagerduty) 1.7.3...
+- Finding pagerduty/pagerduty versions matching "1.9.6"...
+- Installing pagerduty/pagerduty v1.9.6...
+- Installed pagerduty/pagerduty v1.9.6 (signed by a HashiCorp partner, key ID 027C6DD1F0707B45)
 
-The following providers do not have any version constraints in configuration,
-so the latest version was installed.
+Partner and community providers are signed by their developers.
+If you'd like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
 
-To prevent automatic upgrades to new major versions that may contain breaking
-changes, it is recommended to add version = "..." constraints to the
-corresponding provider blocks in configuration, with the constraint strings
-suggested below.
-
-* provider.pagerduty: version = "~> 1.7"
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
 
 Terraform has been successfully initialized!
 
@@ -63,9 +70,6 @@ If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
-
-Once initialized, `terraform.tfstate` will keep the current state of the deployment on the local disk.  
-If you wish to have this securely managed, kindly consider using a [remote backend provider](https://www.terraform.io/docs/backends/index.html).
 
 ## Usage
 
@@ -141,3 +145,5 @@ pagerduty_team.operations: Creation complete after 2s [id=PWQDNED]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 ```
+
+Once the resources have been provisioned, `terraform.tfstate` will keep the current state of the deployment on the local disk. If you wish to have this securely managed, kindly consider using a [remote backend provider](https://www.terraform.io/docs/backends/index.html).
